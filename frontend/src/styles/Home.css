@@ -1,0 +1,166 @@
+/* ─── Home Page Layout ──────────────────────────────────────────────────────── */
+
+.home {
+  flex: 1;
+  padding: var(--space-xl) var(--space-md);
+  /* Extra bottom padding for mobile bottom nav */
+  padding-bottom: calc(var(--space-xl) + 64px);
+}
+
+.home__container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* ─── Welcome ─────────────────────────────────────────────────────────────── */
+
+.home__welcome-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.4px;
+}
+
+.home__welcome-sub {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* ─── Stats Grid ──────────────────────────────────────────────────────────── */
+
+.home__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+/* ─── Section Wrapper ─────────────────────────────────────────────────────── */
+
+.home__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.home__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home__section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.home__section-icon {
+  font-size: 1rem;
+}
+
+.home__section-link {
+  font-size: 1rem;
+  color: var(--color-primary);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff4ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.home__section-link:hover {
+  background: #ffe0cc;
+}
+
+/* ─── Programs List ───────────────────────────────────────────────────────── */
+
+.home__programs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ─── Quick Access ────────────────────────────────────────────────────────── */
+
+.home__quick-access {
+  display: flex;
+  gap: var(--space-md);
+}
+
+/* ─── Training Tip ────────────────────────────────────────────────────────── */
+
+.home__tip {
+  background: #fff8f0;
+  border: 1px solid #fde8cc;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.home__tip-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.home__tip-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 4px;
+}
+
+.home__tip-body {
+  font-size: 0.8rem;
+  color: #92400e;
+  line-height: 1.55;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (min-width: 640px) {
+  .home__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .home {
+    padding: var(--space-xl) var(--space-xl);
+    padding-bottom: var(--space-2xl);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .home {
+    padding: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+  }
+
+  .home__container {
+    gap: var(--space-2xl);
+  }
+
+  .home__welcome-title {
+    font-size: 2rem;
+  }
+}
+
+/* Mobile: ensure bottom nav clearance */
+@media (max-width: 768px) {
+  .home {
+    padding-bottom: 90px;
+  }
+}

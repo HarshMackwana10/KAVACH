@@ -1,0 +1,49 @@
+/* ─── BottomNavbar ──────────────────────────────────────────────────────────── */
+
+/* Only visible on mobile */
+.bottom-navbar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  padding: var(--space-sm) 0 env(safe-area-inset-bottom, var(--space-sm));
+}
+
+.bottom-navbar__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--space-xs);
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bottom-navbar__item--active {
+  color: var(--color-primary);
+}
+
+.bottom-navbar__icon {
+  font-size: 1.2rem;
+}
+
+.bottom-navbar__label {
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+/* Show on mobile */
+@media (max-width: 768px) {
+  .bottom-navbar {
+    display: flex;
+  }
+}

@@ -1,0 +1,97 @@
+/* ─── Global Reset & Design Tokens ─────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Brand Colors */
+  --color-primary:       #e85d04;   /* KAVACH orange */
+  --color-primary-dark:  #c44d00;
+  --color-accent-red:    #e74c3c;
+  --color-accent-green:  #27ae60;
+  --color-accent-orange: #e67e22;
+  --color-dark:          #1a1f2e;   /* near-black card */
+  --color-dark-surface:  #242938;
+
+  /* Neutrals */
+  --color-bg:            #f4f6fb;
+  --color-surface:       #ffffff;
+  --color-border:        #e8ecf4;
+  --color-text:          #1a1f2e;
+  --color-text-muted:    #6b7280;
+  --color-text-light:    #9ca3af;
+
+  /* Badge Colors */
+  --badge-beginner-bg:    #fff3e0;
+  --badge-beginner-text:  #e67e22;
+  --badge-inter-bg:       #e8f5e9;
+  --badge-inter-text:     #27ae60;
+  --badge-adv-bg:         #fce4ec;
+  --badge-adv-text:       #c62828;
+
+  /* Spacing */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+
+  /* Typography */
+  --font-body:    'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Segoe UI', system-ui, sans-serif;
+
+  /* Radius */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+
+  /* Shadow */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.10);
+
+  /* Transitions */
+  --transition: 0.18s ease;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* App layout wrapper */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

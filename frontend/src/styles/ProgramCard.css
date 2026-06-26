@@ -1,0 +1,108 @@
+/* ─── ProgramCard ───────────────────────────────────────────────────────────── */
+
+.program-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.program-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+
+/* Icon */
+.program-card__icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+/* Details */
+.program-card__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.program-card__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: 2px;
+}
+
+.program-card__name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Badges */
+.program-card__badge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  letter-spacing: 0.02em;
+}
+
+.program-card__badge--beginner {
+  background: var(--badge-beginner-bg);
+  color: var(--badge-beginner-text);
+}
+
+.program-card__badge--intermediate {
+  background: var(--badge-inter-bg);
+  color: var(--badge-inter-text);
+}
+
+.program-card__badge--advanced {
+  background: var(--badge-adv-bg);
+  color: var(--badge-adv-text);
+}
+
+.program-card__desc {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.program-card__meta {
+  display: flex;
+  gap: var(--space-md);
+  font-size: 0.73rem;
+  color: var(--color-text-light);
+}
+
+/* Progress bar */
+.program-card__progress-track {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: var(--space-sm);
+}
+
+.program-card__progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 99px;
+  transition: width 0.6s ease;
+}
