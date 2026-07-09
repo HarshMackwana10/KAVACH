@@ -5,124 +5,116 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+// ==========================================
 // REGISTER USER
+// Route: POST /api/auth/register
+// ==========================================
 router.post("/register", async (req, res) => {
-  try {
-    // Get data sent from frontend
-    const { name, email, password, role } = req.body;
+    try {
+        const { name, email, password, role } = req.body;
 
-    // Check if all required fields are present
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        message: "Name, email and password are required",
-      });
+        // 1. Check if the user already exists in the database
+        let user = await User.findOne({ email });
+
+        if (user) {
+            return res.status(400).json({
+                message: "User already exists"
+            });
+        }
+
+        // 2. Hash the password with bcrypt
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(password, salt);
+
+        // 3. Create the new user with the specified role
+        user = new User({
+            name,
+            email,
+            passwordHash,
+            role: role || "Student"
+        });
+
+        // 4. Save user to MongoDB
+        await user.save();
+
+        // 5. Send success response
+        res.status(201).json({
+            message: "User registered successfully"
+        });
+
+    } catch (error) {
+        console.error("Registration error:", error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
     }
-
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser) {
-      return res.status(400).json({
-        message: "User already exists",
-      });
-    }
-
-    // Encrypt password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new user
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      role: role || "student",
-    });
-
-    // Save user to MongoDB
-    await newUser.save();
-
-    // Send success response
-    res.status(201).json({
-      message: "User registered successfully",
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        role: newUser.role,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-
-    res.status(500).json({
-      message: "Server error",
-    });
-  }
 });
 
+// ==========================================
 // LOGIN USER
+// Route: POST /api/auth/login
+// ==========================================
 router.post("/login", async (req, res) => {
-  try {
-    // Get email and password from frontend
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    // Check required fields
-    if (!email || !password) {
-      return res.status(400).json({
-        message: "Email and password are required",
-      });
+        // 1. Find user by email
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Invalid credentials"
+            });
+        }
+
+        // 2. Compare entered password with saved password hash
+        const isMatch = await bcrypt.compare(
+            password,
+            user.passwordHash
+        );
+
+        if (!isMatch) {
+            return res.status(400).json({
+                message: "Invalid credentials"
+            });
+        }
+
+        // 3. Create JWT payload
+        const payload = {
+            userId: user._id,
+            role: user.role
+        };
+
+        // 4. Generate JWT token
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET || "fallback_secret",
+            {
+                expiresIn: "1d"
+            }
+        );
+
+        // 5. Send login success response
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        console.error("Login error:", error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
     }
-
-    // Find user in MongoDB
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(400).json({
-        message: "Invalid email or password",
-      });
-    }
-
-    // Compare entered password with hashed password
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      user.password
-    );
-
-    if (!isPasswordCorrect) {
-      return res.status(400).json({
-        message: "Invalid email or password",
-      });
-    }
-
-    // Create JWT token
-    const token = jwt.sign(
-      {
-        userId: user._id,
-        role: user.role,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
-
-    // Send success response
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Login error:", error);
-
-    res.status(500).json({
-      message: "Server error during login",
-    });
-  }
 });
+
+// Export router
 module.exports = router;
